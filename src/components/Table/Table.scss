@@ -1,0 +1,32 @@
+  .custom-profile-table .ant-table-thead>tr>th {
+      background-color: #FF5A5F !important;
+      /* This is a different red than your config */
+      color: #FFFFFF !important;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 20px 16px !important;
+      border: none !important;
+  }
+
+  /* --- NEW RULE ADDED HERE --- */
+  /* This targets the vertical line pseudo-element and hides it */
+  .custom-profile-table .ant-table-thead>tr>th::before {
+      display: none !important;
+  }
+
+  /* --- END OF NEW RULE --- */
+
+  .custom-profile-table .ant-table-tbody>tr>td {
+      padding: 16px !important;
+    //   border-bottom: 1px solid rgba(219, 219, 219, 0.5) !important;
+  }
+
+  .custom-profile-table .ant-table-tbody>tr.ant-table-row:hover>td {
+      background: #F7F7F7 !important;
+  }
+
+  .custom-table-select .ant-select-selector {
+      border-color: #DBDBDB !important;
+      border-radius: 8px !important;
+  }

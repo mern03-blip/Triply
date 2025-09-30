@@ -1,0 +1,25 @@
+/* Add these styles to your global CSS file */
+
+/* Target the main input area of our custom select component */
+.revenue-select .ant-select-selector {
+  border-radius: 9px !important;
+  border-color: #DBDBDB !important;       /* This is your primaryColor */
+  height: 40px !important;
+  padding: 0 16px !important;
+  display: flex;
+  align-items: center;
+}
+
+/* Target the text ('Month') inside the select */
+.revenue-select .ant-select-selection-item {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;                      /* This is your font-b5 */
+  font-size: 14px;
+  color: #151515;                       /* This is your primaryTextColor */
+}
+
+/* Target the dropdown arrow */
+.revenue-select .ant-select-arrow {
+  color: #E53935 !important;   
+  margin: 0.2px;          /* This is your redColor */
+}

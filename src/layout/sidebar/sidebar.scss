@@ -1,0 +1,36 @@
+// .before-class:hover::before,
+// .before-class.active::before {
+//   content: "";
+//   position: absolute;
+//   left: -15%;
+//   top: 49%;
+//   transform: translateY(-50%);
+//   width: .7vw;
+//   height: 7vh;
+//   // background-color: #044a8e;
+//   border-radius: 2rem;
+//   transition: background-color 0.3s ease;
+// }
+
+.before-class {
+  position: relative;
+  &:hover,
+  &.active {
+    img {
+      filter: brightness(0) invert(2);
+    }
+  }
+}
+
+/* --- Hides the scrollbar but keeps scrolling functionality --- */
+
+/* For Chrome, Safari, and Opera */
+.custom-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* For IE, Edge, and Firefox */
+.custom-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}

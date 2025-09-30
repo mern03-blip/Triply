@@ -1,0 +1,34 @@
+/* Outer circle (default state) */
+.status-radio-group .ant-radio-inner {
+  border: 2px solid #DBDBDB !important;
+  width: 20px;
+  height: 20px;
+  border-radius: 50% !important;
+  position: relative;
+  background-color: #fff !important;
+}
+
+/* Reset AntD default dot */
+.status-radio-group .ant-radio-inner::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Checked state: red background + red border */
+.status-radio-group .ant-radio-checked .ant-radio-inner {
+  background-color: #FF5A5F !important; /* red background */
+  border-color: #FF5A5F !important;     /* red border */
+}
+
+/* White tick inside */
+.status-radio-group .ant-radio-checked .ant-radio-inner::before {
+  content: '';
+  position: absolute;
+  left: 6px;   /* adjust horizontally */
+  top: 2px;    /* adjust vertically */
+  width: 6px;
+  height: 10px;
+  border: solid #fff; /* white tick */
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}

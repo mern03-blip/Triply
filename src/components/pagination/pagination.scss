@@ -1,0 +1,19 @@
+  .pagination-select .ant-select-selector {
+          background-color: transparent !important;
+           color: #151515; /* primaryTextColor */
+          font-weight: 700;
+          font-size: 12px; /* text-h4 */
+          border: none !important;
+          box-shadow: none !important;
+          padding-right: 16px !important;
+          line-height: 1 !important;
+        }
+        .pagination-select .ant-select-selection-item,
+        .pagination-select .ant-select-arrow {
+          color: #151515; /* primaryTextColor */
+          font-weight: 500; /* font-b5 */
+          font-size: 12px; /* text-h4 */
+        }
+        .pagination-select.page-jumper .ant-select-selector {
+          padding-right: 16px !important; /* Add space for the arrow */
+        }
