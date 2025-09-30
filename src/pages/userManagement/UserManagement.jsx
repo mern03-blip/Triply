@@ -128,7 +128,7 @@ const UserManagement = () => {
             align: "center",
             width: "5%",
             render: (record) => (
-                <Dropdown overlay={menu(record)} trigger={["click"]} placement="bottomRight">
+                <Dropdown menu={menu(record)} trigger={["click"]} placement="bottomRight">
                     <button>
                         <img src={RedDots} alt="More" />
                     </button>
