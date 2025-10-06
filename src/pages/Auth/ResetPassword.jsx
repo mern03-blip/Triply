@@ -4,56 +4,70 @@ import { Button, Form, Input, Typography, Modal, message } from "antd";
 import { FiArrowLeft, FiLock } from "react-icons/fi";
 import { EyeTwoTone, EyeInvisibleOutlined, CloseOutlined } from "@ant-design/icons";
 import { FeaturedIcon } from "../../assets/image";
-import { forgrotPassword } from "../../api/auth/auth";
+import { forgotPassword } from "../../api/endpoints/auth";
+import { useMutation } from "@tanstack/react-query";
 
 const { Title } = Typography;
 
 const ResetPassword = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  // ✅ TanStack Mutation Hook
+  const { mutate: resetPasswordMutation, isPending: loading } = useMutation({
+    mutationFn: async (values) => {
+      const email = localStorage.getItem("email");
+      const data = { email, password: values.newPassword, step: 3 };
+      console.log("Reset Password Request Data:", data);
 
-  // const onFinish = async (password) => {
+      const response = await forgotPassword(data);
+      return response;
+    },
+    onSuccess: (response) => {
+      if (response?.success) {
+        message.success(response?.message || "Password reset successfully!");
+        setIsModalVisible(true);
+        localStorage.removeItem("email");
+        localStorage.removeItem("otpPurpose");
+      } else {
+        message.error(
+          response?.message || "Something went wrong while resetting password."
+        );
+      }
+    },
+    onError: (error) => {
+      message.error(error?.response?.data?.message || "Server error. Please try again.");
+    },
+  });
+
+  const onFinish = (values) => {
+    resetPasswordMutation(values);
+  };
+
+  // const onFinish = async (values) => {
   //   setLoading(true);
   //   const email = localStorage.getItem("email") || `admin@gmail.com`;
-  //   const data = { email, password: password.newPassword, step: 3 };
-  //   console.log(data);
+  //   const data = { email, password: values.newPassword, step: 3 };
 
   //   try {
   //     const response = await forgrotPassword(data);
-  //     console.log(response);
+  //     console.log("Reset Password Response:", response);
 
+  //     if (response?.success) {
+  //       // ✅ Success case
+  //       setIsModalVisible(true); // show modal
+  //       localStorage.removeItem("email"); // clear email from storage
+  //     } else {
+  //       // ❌ success false from backend
+  //       message.error(response?.message || "Something went wrong while resetting password.");
+  //     }
   //   } catch (error) {
-
+  //     // ❌ Catch API or network errors
+  //     message.error(error?.response?.data?.message || "Server error. Please try again.");
+  //   } finally {
+  //     setLoading(false);
   //   }
-
   // };
-
-  const onFinish = async (values) => {
-    setLoading(true);
-    const email = localStorage.getItem("email") || `admin@gmail.com`;
-    const data = { email, password: values.newPassword, step: 3 };
-
-    try {
-      const response = await forgrotPassword(data);
-      console.log("Reset Password Response:", response);
-
-      if (response?.success) {
-        // ✅ Success case
-        setIsModalVisible(true); // show modal
-        localStorage.removeItem("email"); // clear email from storage
-      } else {
-        // ❌ success false from backend
-        message.error(response?.message || "Something went wrong while resetting password.");
-      }
-    } catch (error) {
-      // ❌ Catch API or network errors
-      message.error(error?.response?.data?.message || "Server error. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
 
 
   return (

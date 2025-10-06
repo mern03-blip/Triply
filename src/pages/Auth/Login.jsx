@@ -2,42 +2,62 @@ import { useState } from "react";
 import { Button, Col, Divider, Form, Input, Row, Typography, message } from "antd";
 import { FiMail, FiLock } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
-// import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-// import { doc, getDoc } from "firebase/firestore";
-// import { db } from "../../firebase/config/firebase";
 import { Apple, Google } from "../../assets/image";
 import { EyeTwoTone, EyeInvisibleOutlined } from "@ant-design/icons";
-import { userLogin } from "../../api/auth/auth";
+import { userLogin } from "../../api/endpoints/auth";
+import { useMutation } from "@tanstack/react-query";
 
 
 const { Title } = Typography;
 
 const Login = () => {
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const onFinish = async (values) => {
-    // console.log(values);
-
-    try {
-      setLoading(true)
-      const response = await userLogin(values)
-
+  const { mutate: handleLoginUser, isPending: loading } = useMutation({
+    mutationFn: userLogin,
+    onSuccess: (response, variables) => {
       if (response?.success) {
-        localStorage.setItem("email", values.email);
+        localStorage.setItem("email", variables.email);
         localStorage.setItem("otpPurpose", "login"); // for login
-        navigate("/auth/verify-otp")
-        // console.log(adminLogin);
+        navigate("/auth/verify-otp");
+        message.success("Login successful. Please verify OTP.");
       }
-    } catch (error) {
-      setLoading(false);
+    },
+    onError: (error) => {
       if (error.code === "auth/invalid-credential") {
         message.error("Invalid email or password. Please try again.");
       } else {
         message.error("Error logging in. Please try again.");
       }
-    }
+    },
+  });
+
+  const onFinish = (values) => {
+    handleLoginUser(values); // ✅ directly call mutation
   };
+
+  // const onFinish = async (values) => {
+  //   // console.log(values);
+
+  //   try {
+  //     setLoading(true)
+  //     const response = await userLogin(values)
+
+  //     if (response?.success) {
+  //       localStorage.setItem("email", values.email);
+  //       localStorage.setItem("otpPurpose", "login"); // for login
+  //       navigate("/auth/verify-otp")
+  //       // console.log(adminLogin);
+  //     }
+  //   } catch (error) {
+  //     setLoading(false);
+  //     if (error.code === "auth/invalid-credential") {
+  //       message.error("Invalid email or password. Please try again.");
+  //     } else {
+  //       message.error("Error logging in. Please try again.");
+  //     }
+  //   }
+  // };
 
   const preventCopyPaste = (e) => {
     e.preventDefault();
@@ -114,10 +134,10 @@ const Login = () => {
           </div>
 
           {/* Divider */}
-          <Divider className="text-gray-400 text-[18px]">or continue with</Divider>
+          {/* <Divider className="text-gray-400 text-[18px]">or continue with</Divider> */}
 
           {/* Social Buttons */}
-          <Row gutter={16} className="mb-6 flex justify-center gap-6">
+          {/* <Row gutter={16} className="mb-6 flex justify-center gap-6">
             <Col>
               <Button
                 size="large"
@@ -136,7 +156,7 @@ const Login = () => {
                 <img src={Apple} alt="Apple" className="h-6" />
               </Button>
             </Col>
-          </Row>
+          </Row> */}
 
           {/* Submit Button */}
           <Button
@@ -144,7 +164,7 @@ const Login = () => {
             htmlType="submit"
             loading={loading}
             // onClick={()=>navigate("/auth/verify-otp")}
-            className="w-[100%]  h-[60px] flex justify-center rounded-custom bg-mainColor text-whiteColor font-b7 text-h2  border-none"
+            className="w-[100%]  h-[60px] flex justify-center rounded-custom bg-mainColor text-whiteColor font-b7 text-h2 mt-4 border-none"
           >
             Login
           </Button>

@@ -4,13 +4,43 @@ import { FiMail, FiArrowLeft } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { useSendOtp } from "../../firebase/collection/authHooks";
 import { Logo } from "../../assets/image";
-import { forgrotPassword } from "../../api/auth/auth";
+import { forgotPassword } from "../../api/endpoints/auth";
+import { useMutation } from "@tanstack/react-query";
 
 const { Title } = Typography;
 
 const ForgetPassword = () => {
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  // ✅ TanStack mutation
+  const { mutate: handleForgotPassword, isPending: loading } = useMutation({
+    mutationFn: forgotPassword,
+    onSuccess: (response, variables) => {
+      if (response?.success) {
+        message.success(response.message || "OTP sent to your email");
+
+        localStorage.setItem("email", variables.email);
+        localStorage.setItem("otpPurpose", "reset"); // for reset password
+
+        navigate("/auth/verify-otp");
+      } else {
+        message.error(response?.message || "Failed to send OTP");
+      }
+    },
+    onError: (error) => {
+      message.error(error?.response?.data?.message || "Error sending OTP");
+    },
+  });
+
+  // ✅ Form submit handler
+  const onFinish = (values) => {
+    const payload = {
+      email: values.email,
+      step: 1,
+    };
+    console.log("ForgetPassword Request:", payload);
+    handleForgotPassword(payload);
+  };
 
   // const onFinish = async (values) => {
   //   setLoading(true);
@@ -18,44 +48,28 @@ const ForgetPassword = () => {
   //     email: values.email,
   //     step: 1
   //   };
-  //   console.log(data);
+  //   console.log("ForgetPassword Request:", data);
+
   //   try {
-  //     const response = await forgrotPassword(data);
-  //     console.log(response);
+  //     const response = await forgotPassword(data);
+  //     // console.log("ForgetPassword Response:", response);
 
+  //     if (response?.success) {
+  //       message.success(response.message || "OTP sent to your email");
+
+  //       localStorage.setItem("email", values.email);
+  //       localStorage.setItem("otpPurpose", "reset"); // for reset password
+
+  //       navigate("/auth/verify-otp");
+  //     } else {
+  //       message.error(response?.message || "Failed to send OTP");
+  //     }
   //   } catch (error) {
-
+  //     message.error(error?.response?.data?.message || "Error sending OTP");
+  //   } finally {
+  //     setLoading(false);
   //   }
   // };
-
-  const onFinish = async (values) => {
-    setLoading(true);
-    const data = {
-      email: values.email,
-      step: 1
-    };
-    console.log("ForgetPassword Request:", data);
-
-    try {
-      const response = await forgrotPassword(data);
-      // console.log("ForgetPassword Response:", response);
-
-      if (response?.success) {
-        message.success(response.message || "OTP sent to your email");
-
-        localStorage.setItem("email", values.email);
-        localStorage.setItem("otpPurpose", "reset"); // for reset password
-
-        navigate("/auth/verify-otp");
-      } else {
-        message.error(response?.message || "Failed to send OTP");
-      }
-    } catch (error) {
-      message.error(error?.response?.data?.message || "Error sending OTP");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <>

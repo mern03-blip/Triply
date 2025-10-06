@@ -103,10 +103,10 @@ export const router = createBrowserRouter([
         path: "notifications",
         element: <LazyComponent path="/notifications" />,
       },
-      //  {
-      //   path: "/*",
-      //   element: <LazyComponent path="/" />,
-      // },
+      {
+        path: "/*",
+        element: <LazyComponent path="/" />,
+      },
     ],
   },
 ]);

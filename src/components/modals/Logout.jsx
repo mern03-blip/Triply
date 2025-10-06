@@ -12,7 +12,7 @@ const Logout = ({ open, handleOk, handleCancel }) => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       handleOk();
       message.success("Logged out successfully.");
-    } catch  {
+    } catch {
       message.error("Logout failed. Please try again.");
     } finally {
       setLoading(false);
