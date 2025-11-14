@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button, Form, Typography, message, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
@@ -9,8 +9,6 @@ import { useMutation } from "@tanstack/react-query";
 const { Title, Text } = Typography;
 
 // --- DEDICATED TIMER COMPONENT ---
-// This component now holds the 'timer' state and its 'useEffect' hook.
-// It will be the ONLY thing that re-renders every second, solving the performance issue.
 const TimerAndResend = ({ initialTime = 59, email, onResendSuccess }) => {
   const [timer, setTimer] = useState(initialTime);
   // 1. Timer logic is isolated here
@@ -137,54 +135,6 @@ const VerifyOtp = () => {
     const fullOtp = otp.join("");
     verifyOtpMutation({ email, otp: fullOtp, step: 2 });
   };
-
-  // const onFinish = async () => {
-  //   if (otp.some((d) => d === "")) {
-  //     message.error("Please enter all 6 digits of the OTP");
-  //     return;
-  //   }
-
-  //   const fullOtp = otp.join("");
-  //   const email = localStorage.getItem("email");
-  //   const otpPurpose = localStorage.getItem("otpPurpose");
-
-  //   const data = { email, otp: fullOtp, step: 2 };
-
-  //   try {
-  //     setLoading(true);
-
-  //     let response;
-
-  //     if (otpPurpose === "reset") {
-  //       response = await forgotPassword(data);
-  //     } else {
-  //       response = await userVerify(data);
-  //     }
-
-  //     if (response?.success) {
-  //       if (otpPurpose === "reset") {
-  //         message.success("OTP verified! Please reset your password");
-  //         navigate("/auth/reset-password");
-  //       } else {
-  //         localStorage.setItem("token", response.admin.token);
-  //         localStorage.setItem("user", JSON.stringify(response.admin));
-  //         message.success(response.message || "OTP verified successfully");
-  //         localStorage.removeItem("email");
-  //         navigate("/");
-  //       }
-
-  //       localStorage.removeItem("otpPurpose");
-  //     } else {
-  //       message.error(response?.message || "OTP verification failed");
-  //     }
-  //   } catch (error) {
-  //     message.error(error?.response?.data?.message || "Error verifying OTP");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  // console.log("Component mount");
 
   return (
     <div className="relative flex-1 flex items-center justify-center h-screen w-full">

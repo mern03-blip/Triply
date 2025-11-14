@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { Table, Menu, Dropdown, Typography } from 'antd';
+import { useState } from 'react';
+import { Menu, Dropdown, Typography } from 'antd';
 import { useNavigate } from "react-router-dom";
 import { Menu1, Menu2, RedDots } from '../../assets/image'; // Assuming you have these images
 import "../../components/Table/Table.scss";
 import Header from "../../layout/header/Header";
 import CustomPagination from '../../components/pagination/CustomPagination';
+import CustomTable from '../../components/Table/CustomTable';
 
 // --- Helper Component for Status and Category Tags ---
 // --- Helper Component for Status and Category Tags ---
@@ -20,9 +21,9 @@ const InfoTag = ({ text, type = 'status' }) => {
       'Buffet': 'bg-greenColor/10 text-greenColor',
     }
   };
-  
+
   const style = colorMap[type][text] || 'bg-primaryColor/10 text-primaryTextColor';
-  
+
   return (
     <div className={`inline-block rounded-full px-4 py-1.5 ${style}`}>
       <span className="font-b6 text-text2">{text}</span>
@@ -36,9 +37,9 @@ const RestaurantMenu = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
 
-    const handleSearch = (term) => {
-        setSearchTerm(term); // Update search term
-    };
+  const handleSearch = (term) => {
+    setSearchTerm(term); // Update search term
+  };
 
   // --- New Mock Data to match the "Restaurant" design ---
   const mockData = Array.from({ length: 40 }, (_, i) => ({
@@ -56,12 +57,11 @@ const RestaurantMenu = () => {
   const endIndex = startIndex + pageSize;
   const currentData = mockData.slice(startIndex, endIndex);
 
-  const menu = (record) => (
-    <Menu>
-      <Menu.Item key="edit">Edit</Menu.Item>
-      <Menu.Item key="delete" danger>Delete</Menu.Item>
-    </Menu>
-  );
+  const Menu = () => [
+  { key: "details", label: "User Details" },
+  { key: "edit", label: "Edit User" }
+];
+
 
   // --- Updated Columns Definition for the "Restaurant" table ---
   const columns = [
@@ -107,7 +107,19 @@ const RestaurantMenu = () => {
       align: "center",
       width: "10%",
       render: (record) => (
-        <Dropdown menu={menu(record)} trigger={["click"]} placement="bottomRight">
+        <Dropdown trigger={["click"]} placement="bottomRight"
+          menu={{
+            items: Menu(record),
+            // onClick: ({ key }) => {
+            //   if (key === "details") {
+            //     navigate(`/userDetail/${record.key}`);
+            //   }
+            //   if (key === "edit") {
+            //     navigate(`/userDetail/${record.key}`);
+            //   }
+            // },
+          }}
+        >
           <button>
             <img src={RedDots} alt="More" />
           </button>
@@ -118,7 +130,7 @@ const RestaurantMenu = () => {
 
   return (
     <div className='bg-lightBgColor pb-6'>
-      <div className="flex items-center justify-between w-full bg-whiteColor py-3">
+      <div className="flex items-center justify-between w-full bg-whiteColor">
 
         <div className="flex flex-col ml-6">
           <Typography className="font-b6 text-h2  text-blackColor">
@@ -141,11 +153,10 @@ const RestaurantMenu = () => {
 
       <div className="my-10 mx-8">
         <div className="font-custom w-full overflow-hidden rounded-custom border border-custom bg-whiteColor shadow-sm">
-          <Table
+          <CustomTable
             className="custom-profile-table"
             columns={columns}
-            dataSource={currentData} // 4. Use the sliced data
-            // dataSource={mockData}
+            dataSource={currentData}
             pagination={false}
             rowKey="key"
           />

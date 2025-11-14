@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
-import { Table, Menu, Dropdown, Typography } from 'antd';
+import { useState } from 'react';
+import { Dropdown, Typography, Button } from 'antd';
 import { useNavigate } from "react-router-dom";
-import { RedDots, SwissAlps, Tokyo } from '../../assets/image'; // Assuming you have these images
-import "../../components/Table/Table.scss";
+import { RedDots, SwissAlps, Tokyo } from '../../assets/image';
 import Header from "../../layout/header/Header";
 import CustomPagination from '../../components/pagination/CustomPagination';
+import CustomTable from '../../components/Table/CustomTable';
 
-// --- Helper Component for Status and Category Tags ---
 const InfoTag = ({ text, type = 'status' }) => {
-  // Map types and text to their corresponding colors from your Tailwind config
   const colorMap = {
     status: {
       Active: 'bg-greenColor/10 text-greenColor',
@@ -16,7 +14,7 @@ const InfoTag = ({ text, type = 'status' }) => {
     },
     category: {
       Mountain: 'bg-greenColor/10 text-greenColor',
-      City: 'bg-greenColor/10 text-greenColor', // You can change this color if needed
+      City: 'bg-greenColor/10 text-greenColor',
     }
   };
 
@@ -55,12 +53,11 @@ const Destination = () => {
   const endIndex = startIndex + pageSize;
   const currentData = mockData.slice(startIndex, endIndex);
 
-  const menu = (record) => (
-    <Menu>
-      <Menu.Item key="edit">Edit</Menu.Item>
-      <Menu.Item key="delete" danger>Delete</Menu.Item>
-    </Menu>
-  );
+  const Menu = () => [
+    { key: "details", label: "User Details" },
+    { key: "edit", label: "Edit User" }
+  ];
+
 
   // --- Updated Columns Definition ---
   const columns = [
@@ -106,18 +103,33 @@ const Destination = () => {
       align: "center",
       width: "10%",
       render: (record) => (
-        <Dropdown menu={menu(record)} trigger={["click"]} placement="bottomRight">
+        <Dropdown
+          trigger={["click"]}
+          placement="bottomRight"
+          menu={{
+            items: Menu(record),
+            // onClick: ({ key }) => {
+            //   if (key === "details") {
+            //     navigate(`/userDetail/${record.key}`);
+            //   }
+            //   if (key === "edit") {
+            //     navigate(`/userDetail/${record.key}`);
+            //   }
+            // },
+          }}
+        >
           <button>
             <img src={RedDots} alt="More" />
           </button>
         </Dropdown>
+
       ),
     },
   ];
 
   return (
     <div className='bg-lightBgColor pb-6'>
-      <div className="flex items-center justify-between w-full bg-whiteColor py-3">
+      <div className="flex items-center justify-between w-full bg-whiteColor">
 
         <div className="flex flex-col ml-6">
           <Typography className="font-b6 text-h2  text-blackColor">
@@ -138,9 +150,14 @@ const Destination = () => {
         </div>
       </div>
 
-      <div className="my-10 mx-8">
+      <div className="my-5 mx-8">
+        <div className="text-end py-3">
+          <Button className="h-[50px] bg-mainColor text-h4 text-whiteColor font-b6 !border-none">
+            Add Now User
+          </Button>
+        </div>
         <div className="font-custom w-full overflow-hidden rounded-custom border border-custom bg-whiteColor shadow-sm">
-          <Table
+          <CustomTable
             className="custom-profile-table"
             columns={columns}
             dataSource={currentData} // 4. Use the sliced data

@@ -13,7 +13,7 @@ const componentMap = {
 
   //User Management
   "/userManagement": lazy(() => import("../pages/userManagement/UserManagement")),
-  "/userDetail/:id": lazy(() => import("../pages/userManagement/userDetail")),
+  "/userDetail/:id": lazy(() => import("../pages/userManagement/components/userDetail")),
   // "/editUserDetail/:id": lazy(() =>import("../pages/userManagement/editUserDetail")),
 
   // Destination

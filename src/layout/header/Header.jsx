@@ -1,5 +1,4 @@
 import { Input, Avatar } from "antd";
-import { BiSearchAlt } from "react-icons/bi";
 import PropTypes from "prop-types";
 import Notification from "../../components/notification/Notification";
 import { DP, Search } from "../../assets/image";

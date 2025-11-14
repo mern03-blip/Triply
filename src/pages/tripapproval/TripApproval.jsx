@@ -5,6 +5,7 @@ import { EiffelTower, RedDots } from '../../assets/image'; // Assuming you have 
 import "../../components/Table/Table.scss";
 import Header from "../../layout/header/Header";
 import CustomPagination from '../../components/pagination/CustomPagination';
+import CustomTable from '../../components/Table/CustomTable';
 
 // --- Helper Component for Status and Category Tags ---
 // --- Helper Component for Status and Category Tags ---
@@ -57,12 +58,10 @@ const TripApproval = () => {
   const endIndex = startIndex + pageSize;
   const currentData = mockData.slice(startIndex, endIndex);
 
-  const menu = (record) => (
-    <Menu>
-      <Menu.Item key="edit">Edit</Menu.Item>
-      <Menu.Item key="delete" danger>Delete</Menu.Item>
-    </Menu>
-  );
+ const Menu = () => [
+  { key: "details", label: "User Details" },
+  { key: "edit", label: "Edit User" }
+];
 
   // --- Updated Columns Definition for the "Restaurant" table ---
   const columns = [
@@ -115,7 +114,18 @@ const TripApproval = () => {
       align: "center",
       width: "10%",
       render: (record) => (
-        <Dropdown menu={menu(record)} trigger={["click"]} placement="bottomRight">
+        <Dropdown trigger={["click"]} placement="bottomRight"
+          menu={{
+            items: Menu(record),
+            // onClick: ({ key }) => {
+            //   if (key === "details") {
+            //     navigate(`/userDetail/${record.key}`);
+            //   }
+            //   if (key === "edit") {
+            //     navigate(`/userDetail/${record.key}`);
+            //   }
+            // },
+          }}>
           <button>
             <img src={RedDots} alt="More" />
           </button>
@@ -126,7 +136,7 @@ const TripApproval = () => {
 
   return (
     <div className='bg-lightBgColor pb-6'>
-      <div className="flex items-center justify-between w-full bg-whiteColor py-3">
+      <div className="flex items-center justify-between w-full bg-whiteColor">
 
         <div className="flex flex-col ml-6">
           <Typography className="font-b6 text-h2  text-blackColor">
@@ -149,7 +159,7 @@ const TripApproval = () => {
 
       <div className="my-10 mx-8">
         <div className="font-custom w-full overflow-hidden rounded-custom border border-custom bg-whiteColor shadow-sm">
-          <Table
+          <CustomTable
             className="custom-profile-table"
             columns={columns}
             dataSource={currentData} // 4. Use the sliced data

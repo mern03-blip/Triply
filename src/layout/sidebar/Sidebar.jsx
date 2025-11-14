@@ -126,14 +126,14 @@ const Sidebar = () => {
   return (
     <div className="h-auto bg-whiteColor text-white w-[100%]">
       <div className="text-center py-3 mb-4">
-        <img className="mx-auto w-[175px] h-auto" src={Logo2} alt="Logo" />
+        <img className="mx-auto w-[160px] h-auto" src={Logo2} alt="Logo" />
       </div>
 
       <div className="flex flex-col justify-between">
         {/* Top Sidebar Items */}
         <ul>
           {sidebarItems.map((item, index) => (
-            <li key={index} className="mb-4 mx-8 relative font-custom">
+            <li key={index} className="mb-4 mx-4 relative font-custom">
               {item.isLogout ? (
                 <a
                   href="#"

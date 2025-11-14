@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Radio, Avatar } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import "./UserDetail.scss"
-import Header from "../../layout/header/Header";
+import Header from "../../../layout/header/Header";
 
 // --- Reusable Helper Component ---
 // For displaying a piece of personal information.
@@ -17,8 +17,6 @@ const InfoItem = ({ label, value }) => (
 // --- Static User Detail Page Component ---
 const UserDetail = () => {
   const navigate = useNavigate();
-
-  // State for the interactive radio buttons is still needed.
   const [status, setStatus] = useState('Pending');
 
   // All user data is now a simple, hardcoded object.

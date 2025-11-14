@@ -1,9 +1,6 @@
-import { useState } from "react";
 import { Button, Form, Input, Typography, message } from "antd";
 import { FiMail, FiArrowLeft } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import { useSendOtp } from "../../firebase/collection/authHooks";
-import { Logo } from "../../assets/image";
 import { forgotPassword } from "../../api/endpoints/auth";
 import { useMutation } from "@tanstack/react-query";
 
@@ -41,35 +38,6 @@ const ForgetPassword = () => {
     console.log("ForgetPassword Request:", payload);
     handleForgotPassword(payload);
   };
-
-  // const onFinish = async (values) => {
-  //   setLoading(true);
-  //   const data = {
-  //     email: values.email,
-  //     step: 1
-  //   };
-  //   console.log("ForgetPassword Request:", data);
-
-  //   try {
-  //     const response = await forgotPassword(data);
-  //     // console.log("ForgetPassword Response:", response);
-
-  //     if (response?.success) {
-  //       message.success(response.message || "OTP sent to your email");
-
-  //       localStorage.setItem("email", values.email);
-  //       localStorage.setItem("otpPurpose", "reset"); // for reset password
-
-  //       navigate("/auth/verify-otp");
-  //     } else {
-  //       message.error(response?.message || "Failed to send OTP");
-  //     }
-  //   } catch (error) {
-  //     message.error(error?.response?.data?.message || "Error sending OTP");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
 
   return (
     <>

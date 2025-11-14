@@ -15,7 +15,7 @@ const AppLayout = () => {
       }}
     >
       <Sider
-        width={"20%"}
+        width={"270px"}
         className="sider-style  custom-scrollbar overflow-y-auto"
         style={{ height: "100%", top: 0, left: 0, overflowY:"auto" }}
       >

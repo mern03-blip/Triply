@@ -1,23 +1,17 @@
 import { Typography } from "antd";
 import Header from "../../layout/header/Header";
-import SmallCard from "../../components/cards/SmallCard";
 import BookingsOverviewChart from "../../components/charts/BookingsOverviewChart";
 import RevenueTrendsChart from "../../components/charts/RevenueTrendsChart";
-import QuickActionsCard from "../../components/cards/QuickActionsCard";
+import StatCard from "./components/StatCard";
+import QuickActionsCard from "./components/QuickActionsCard";
 
 const Dashboard = () => {
-
-  const handleSearch = (term) => {
-    setSearchTerm(term); // Update search term
-  };
-
 
   return (
     <>
       <div className="bg-lightBgColor">
-
         {/* Header  */}
-        <div className="flex items-center justify-between w-full bg-whiteColor py-3 px-1">
+        <div className="flex items-center justify-between w-full bg-whiteColor  px-1">
 
           <div className="flex flex-col ml-6">
             <span className="text-[22px] font-b6 text-blackColor">
@@ -32,7 +26,7 @@ const Dashboard = () => {
             <Header
               showSearch={true}
               placeholder="Search here User"
-              handleSearch={handleSearch}
+            // handleSearch={handleSearch}
             />
           </div>
         </div>
@@ -41,15 +35,9 @@ const Dashboard = () => {
           <Typography className="font-b6 text-h2 font-custom text-blackColor">
             Dashboard
           </Typography>
-          {/* // --- Replace your existing block with this new card --- */}
           <div className="my-2">
-            <SmallCard />
+            <StatCard />
           </div>
-
-          {/* <div className="flex  gap-8  my-2">
-            <BookingsOverviewChart />
-            <RevenueTrendsChart />
-          </div> */}
 
           <div className="grid grid-cols-12 gap-8 my-2">
             <div className="md:col-span-12 lg:col-span-8">
@@ -59,7 +47,6 @@ const Dashboard = () => {
               <RevenueTrendsChart />
             </div>
           </div>
-
 
           <div>
             <Typography className="font-b6 text-h2 font-custom text-blackColor mb-5">

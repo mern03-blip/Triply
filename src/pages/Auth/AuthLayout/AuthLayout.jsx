@@ -1,4 +1,3 @@
-import React from 'react'
 import { Outlet } from 'react-router-dom'
 import { Logo } from '../../../assets/image'
 
@@ -12,9 +11,8 @@ const AuthLayout = () => {
                 </div>
 
                 {/* Right Section */}
-
                 <div className="hidden md:flex flex-1  bg-bgColor items-center justify-center h-auto w-auto">
-                    <img src={Logo} alt="Login Image" className=" object-fit h-[auto] w-[60%]" />
+                    <img src={Logo} alt="Login Image" className=" object-fit h-[auto] w-[50%]" />
                 </div>
             </div>
 

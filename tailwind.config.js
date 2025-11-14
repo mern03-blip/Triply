@@ -10,15 +10,15 @@ export default {
         greenColor: "#1B5E1F",
         bgColor: "#FF5A5F1A",
         yellowColor: "#EE872D",
+        blackColor: "#000000",
+        blueColor:"#007AFF",
         
         lightBgColor: "#F7F7F7",
         halfWhite: "#FFFFFF80",
         stockColor: "#DBDBDB",
         whiteColor: "#FFFFFF",
         redColor: "#E53935",
-        blackColor: "#000000",
         descColor: "#15151580",
-        blueColor:"#007AFF",
       },
 
       //font family

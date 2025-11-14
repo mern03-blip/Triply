@@ -1,4 +1,4 @@
-import { Building, Plus } from '../../assets/image';
+import { Building, Plus } from '../../../assets/image';
 
 const QuickActionsCard = () => {
     return (

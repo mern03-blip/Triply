@@ -1,13 +1,11 @@
-import React from 'react'
 import Header from "../../layout/header/Header";
-import { Typography } from 'antd';
+import { Button, Typography } from 'antd';
 import { useState } from 'react'; // 1. Import useState
-import { Table } from 'antd';
 import { Dropdown, Menu } from "antd";
 import { useNavigate } from "react-router-dom";
 import { RedDots } from '../../assets/image';
-import "../../components/Table/Table.scss";
 import CustomPagination from '../../components/pagination/CustomPagination';
+import CustomTable from '../../components/Table/CustomTable';
 
 
 const StatusTag = ({ status }) => {
@@ -27,7 +25,7 @@ const StatusTag = ({ status }) => {
 
 const UserManagement = () => {
     const handleSearch = (term) => {
-        setSearchTerm(term); // Update search term
+        setSearchTerm(term);
     };
     const navigate = useNavigate();
 
@@ -62,23 +60,11 @@ const UserManagement = () => {
     const endIndex = startIndex + pageSize;
     const currentData = mockData.slice(startIndex, endIndex);
 
-    const menu = (record) => (
-        <Menu>
-            <Menu.Item
-                key="details"
-                onClick={() => navigate(`/userDetail/${record.key}`)} // navigate with user id/key
-            >
-                User Details
-            </Menu.Item>
-              <Menu.Item
-                key="edit"
-                className='mt-2'
-                onClick={() => navigate(`/userDetail/${record.key}`)} // navigate with user id/key
-            >
-                Edit User
-            </Menu.Item>
-        </Menu>
-    );
+  const Menu = () => [
+  { key: "details", label: "User Details" },
+  { key: "edit", label: "Edit User" }
+];
+
 
     // Define the columns for the Ant Design Table
     const columns = [
@@ -128,18 +114,33 @@ const UserManagement = () => {
             align: "center",
             width: "5%",
             render: (record) => (
-                <Dropdown menu={menu(record)} trigger={["click"]} placement="bottomRight">
+                <Dropdown
+                    trigger={["click"]}
+                    placement="bottomRight"
+                    menu={{
+                        items: Menu(record),
+                        onClick: ({ key }) => {
+                            if (key === "details") {
+                                navigate(`/userDetail/${record.key}`);
+                            }
+                            if (key === "edit") {
+                                navigate(`/userDetail/${record.key}`);
+                            }
+                        },
+                    }}
+                >
                     <button>
                         <img src={RedDots} alt="More" />
                     </button>
                 </Dropdown>
+
             ),
         },
     ];
     return (
         <div className='bg-lightBgColor pb-6'>
 
-            <div className="flex items-center justify-between w-full bg-whiteColor py-3">
+            <div className="flex items-center justify-between w-full bg-whiteColor">
 
                 <div className="flex flex-col ml-6">
                     <Typography className="font-b6 text-h2  text-blackColor">
@@ -150,7 +151,6 @@ const UserManagement = () => {
                     </Typography>
                 </div>
 
-
                 <div>
                     <Header
                         showSearch={true}
@@ -160,13 +160,17 @@ const UserManagement = () => {
                 </div>
             </div>
 
-            <div className="my-10 mx-8">
+            <div className="my-5 mx-8">
+                <div className="text-end py-3">
+                    <Button className="h-[50px] bg-mainColor text-h4 text-whiteColor font-b6 !border-none">
+                        Add Now User
+                    </Button>
+                </div>
                 <div className="font-custom w-full overflow-hidden rounded-custom border border-custom bg-whiteColor shadow-sm">
-                    <Table
+                    <CustomTable
                         className="custom-profile-table"
                         columns={columns}
-                        dataSource={currentData} // 4. Use the sliced data
-                        // dataSource={mockData}
+                        dataSource={currentData}
                         pagination={false}
                         rowKey="key"
                     />
@@ -179,7 +183,7 @@ const UserManagement = () => {
                         onPageChange={setCurrentPage}
                         onPageSizeChange={(size) => {
                             setPageSize(size);
-                            setCurrentPage(1); // Reset to first page when page size changes
+                            setCurrentPage(1);
                         }}
                     />
                 </div>

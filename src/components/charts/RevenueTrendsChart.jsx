@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 import { Select } from 'antd';
 import './charts.scss';

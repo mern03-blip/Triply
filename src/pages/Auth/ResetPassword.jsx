@@ -44,32 +44,6 @@ const ResetPassword = () => {
     resetPasswordMutation(values);
   };
 
-  // const onFinish = async (values) => {
-  //   setLoading(true);
-  //   const email = localStorage.getItem("email") || `admin@gmail.com`;
-  //   const data = { email, password: values.newPassword, step: 3 };
-
-  //   try {
-  //     const response = await forgrotPassword(data);
-  //     console.log("Reset Password Response:", response);
-
-  //     if (response?.success) {
-  //       // ✅ Success case
-  //       setIsModalVisible(true); // show modal
-  //       localStorage.removeItem("email"); // clear email from storage
-  //     } else {
-  //       // ❌ success false from backend
-  //       message.error(response?.message || "Something went wrong while resetting password.");
-  //     }
-  //   } catch (error) {
-  //     // ❌ Catch API or network errors
-  //     message.error(error?.response?.data?.message || "Server error. Please try again.");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-
   return (
     <>
       <div className="relative flex-1 flex items-center justify-center h-screen w-full">
@@ -183,9 +157,9 @@ const ResetPassword = () => {
           onCancel={() => setIsModalVisible(false)}
           footer={null}
           width={"450px"}
-          height={"250px"} // Set a fixed width for better control
-          closable={false} // We will use a custom close button
-          className="rounded-[28px]" // Use your custom border-radius
+          height={"250px"}
+          closable={false}
+          className="rounded-[28px]"
         >
           <div className="font-custom flex flex-col items-left p-6 text-left">
 
@@ -219,7 +193,7 @@ const ResetPassword = () => {
               className="!h-12 w-full !rounded-custom !bg-mainColor !font-b6 !text-h4 !text-whiteColor"
               onClick={() => {
                 setIsModalVisible(false);
-                navigate("/auth"); // Navigate to your login route
+                navigate("/auth");
               }}
             >
               Login
