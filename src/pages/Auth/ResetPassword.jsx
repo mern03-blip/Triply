@@ -79,7 +79,7 @@ const ResetPassword = () => {
                 {
                   pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*\s).{6,128}$/,
                   message:
-                    "Password must include uppercase, lowercase, number, special character, no spaces, and be 6–128 characters long",
+                    "Password must include uppercase, lowercase, number",
                 },
               ]}
             >

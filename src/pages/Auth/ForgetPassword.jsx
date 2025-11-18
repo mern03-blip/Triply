@@ -32,8 +32,8 @@ const ForgetPassword = () => {
   // ✅ Form submit handler
   const onFinish = (values) => {
     const payload = {
-      email: values.email,
       step: 1,
+      email: values.email,
     };
     console.log("ForgetPassword Request:", payload);
     handleForgotPassword(payload);
@@ -68,9 +68,9 @@ const ForgetPassword = () => {
               name="email"
               required={false}
               rules={[
-                // { required: true, message: "Please enter your email" },
-                // { type: "email", message: "Enter a valid email address" },
-                // { max: 254, message: "Email must not exceed 254 characters" },
+                { required: true, message: "Please enter your email" },
+                { type: "email", message: "Enter a valid email address" },
+                { max: 254, message: "Email must not exceed 254 characters" },
               ]}
             >
               <Input

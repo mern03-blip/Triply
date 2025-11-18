@@ -51,11 +51,11 @@ const Login = () => {
             label={<span className="font-b5 text-h4 text-blackColor">Email</span>}
             name="email"
             required={true}
-          // rules={[
-          //   { required: true, message: "Please enter your email" },
-          //   { type: "email", message: "Enter a valid email address" },
-          //   { max: 254, message: "Email must not exceed 254 characters" },
-          // ]}
+            rules={[
+              { required: true, message: "Please enter your email" },
+              { type: "email", message: "Enter a valid email address" },
+              { max: 254, message: "Email must not exceed 254 characters" },
+            ]}
           >
             <Input
               size="large"
@@ -72,11 +72,11 @@ const Login = () => {
             required={true}
             rules={[
               { required: true, message: "Please enter your password" },
-              {
-                pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*\s).{6,128}$/,
-                message:
-                  "Password must include uppercase, lowercase, number,",
-              },
+              // {
+              //   pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*\s).{6,128}$/,
+              //   message:
+              //     "Password must include uppercase, lowercase, number,",
+              // },
             ]}
           >
             <Input.Password

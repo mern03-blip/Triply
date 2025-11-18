@@ -138,7 +138,7 @@ const Sidebar = () => {
                 <a
                   href="#"
                   onClick={showLogoutModal}
-                  className="flex items-center text-[18px] font-b5 py-3 rounded-custom text-blackColor before-class"
+                  className="flex items-center text-[18px] font-b5 py-3 px-1 rounded-custom text-blackColor before-class"
                 >
                   <img className="mr-3 w-6 flex-shrink-0" src={item.icon} alt={item.name} />
                   <span className="truncate block">{item.name}</span>
@@ -168,12 +168,12 @@ const Sidebar = () => {
         <div className="border-t border-[#DBDBDB]">
           <ul className="mt-8">
             {sidebarBottomItems.map((item, index) => (
-              <li key={index} className="mb-4 mx-8 relative font-custom">
+              <li key={index} className="mb-4 mx-4 relative font-custom">
                 {item.isLogout ? (
                   <a
                     href="#"
                     onClick={showLogoutModal}
-                    className="flex items-center text-[18px] font-b5 py-3 px-1.5 rounded-custom text-blackColor hover:bg-mainColor hover:text-whiteColor"
+                    className="flex items-center text-[18px] font-b5 py-3 px-1 rounded-custom text-blackColor hover:bg-mainColor hover:text-whiteColor"
                   >
                     <img className="mr-3 w-6 flex-shrink-0"
                       style={{ filter: `${isActiveRoute(item) ? "brightness(40)" : "none"}` }}
@@ -183,7 +183,7 @@ const Sidebar = () => {
                 ) : (
                   <Link
                     to={item.link}
-                    className={`flex items-center text-[18px] font-b5 py-3 px-1.5 rounded-custom text-blackColor before-class ${isActiveRoute(item)
+                    className={`flex items-center text-[18px] font-b5 py-3 px-1 rounded-custom text-blackColor before-class ${isActiveRoute(item)
                       ? "bg-mainColor text-whiteColor font-b6 rounded-custom active"
                       : ""
                       }`}

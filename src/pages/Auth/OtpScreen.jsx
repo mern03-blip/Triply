@@ -109,8 +109,8 @@ const VerifyOtp = () => {
           message.success("OTP verified! Please reset your password");
           navigate("/auth/reset-password");
         } else {
-          localStorage.setItem("token", response.admin.token);
-          localStorage.setItem("user", JSON.stringify(response.admin));
+          localStorage.setItem("token", response.token);
+          localStorage.setItem("user", JSON.stringify(response.data.email));
           message.success(response.message || "OTP verified successfully");
           navigate("/");
           localStorage.removeItem("email");

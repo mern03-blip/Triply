@@ -6,10 +6,6 @@ import {
   List,
   Empty,
 } from "antd";
-import {
-  fetchNotifications,
-  markAllAsRead,
-} from "../../firebase/collection/noticeForAdmin";
 import { Bell } from "../../assets/image";
 
 // const capitalizeName = (name) => {
@@ -20,29 +16,8 @@ import { Bell } from "../../assets/image";
 const Notification = () => {
   const [notifications, setNotifications] = useState([]);
   // console.log(notifications);
-  useEffect(() => {
-    const getNotifications = async () => {
-      try {
-        const data = await fetchNotifications();
-        setNotifications(data.filter((notification) => !notification.isRead));
-      } catch (error) {
-        console.error("Error fetching notifications:", error);
-      }
-    };
 
-    getNotifications();
-  }, []);
 
-  const handleMarkAllAsRead = async () => {
-    try {
-      await markAllAsRead();
-      setNotifications((prevNotifications) =>
-        prevNotifications.map((notif) => ({ ...notif, isRead: true }))
-      );
-    } catch (error) {
-      console.error("Error marking all notifications as read:", error);
-    }
-  };
 
   const content = (
     <div className="w-[280px]">
@@ -53,7 +28,7 @@ const Notification = () => {
         {notifications.length > 0 ? (
           <Typography
             className="text-[10px] font-custom underline text-blue-400 cursor-pointer hover:text-[11px]"
-            onClick={handleMarkAllAsRead}
+            // onClick={handleMarkAllAsRead}
           >
             Mark all as read
           </Typography>
