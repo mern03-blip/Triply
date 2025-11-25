@@ -5,7 +5,6 @@ import { EyeTwoTone, EyeInvisibleOutlined } from "@ant-design/icons";
 import { userLogin } from "../../api/endpoints/auth";
 import { useMutation } from "@tanstack/react-query";
 
-
 const { Title } = Typography;
 
 const Login = () => {
@@ -18,14 +17,22 @@ const Login = () => {
         localStorage.setItem("email", variables.email);
         localStorage.setItem("otpPurpose", "login");
         navigate("/auth/verify-otp");
-        message.success("Login successful. Please verify OTP.");
+        message.success(
+          response?.message || "Login successful. Please verify OTP."
+        );
       }
     },
     onError: (error) => {
       if (error.code === "auth/invalid-credential") {
-        message.error("Invalid email or password. Please try again.");
+        message.error(
+          error?.response?.data?.message ||
+            "Invalid email or password. Please try again."
+        );
       } else {
-        message.error("Error logging in. Please try again.");
+        message.error(
+          error?.response?.data?.message ||
+            "Error logging in. Please try again."
+        );
       }
     },
   });
@@ -45,10 +52,18 @@ const Login = () => {
           Enter your details to get access.
         </p>
 
-        <Form layout="vertical" onFinish={onFinish} validateTrigger="onChange" className="mt-6" requiredMark={false}>
+        <Form
+          layout="vertical"
+          onFinish={onFinish}
+          validateTrigger="onChange"
+          className="mt-6"
+          requiredMark={false}
+        >
           {/* Email Field */}
           <Form.Item
-            label={<span className="font-b5 text-h4 text-blackColor">Email</span>}
+            label={
+              <span className="font-b5 text-h4 text-blackColor">Email</span>
+            }
             name="email"
             required={true}
             rules={[
@@ -67,17 +82,12 @@ const Login = () => {
 
           {/* Password Field */}
           <Form.Item
-            label={<span className="font-b5 text-h4 text-blackColor">Password</span>}
+            label={
+              <span className="font-b5 text-h4 text-blackColor">Password</span>
+            }
             name="password"
             required={true}
-            rules={[
-              { required: true, message: "Please enter your password" },
-              // {
-              //   pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*\s).{6,128}$/,
-              //   message:
-              //     "Password must include uppercase, lowercase, number,",
-              // },
-            ]}
+            rules={[{ required: true, message: "Please enter your password" }]}
           >
             <Input.Password
               size="large"
@@ -86,16 +96,24 @@ const Login = () => {
               prefix={<FiLock className="text-mainColor text-[20px] mr-2" />}
               iconRender={(visible) =>
                 visible ? (
-                  <EyeTwoTone twoToneColor="#FF5A5F" style={{ color: "#FF5A5F", fontSize: "24px" }} />
+                  <EyeTwoTone
+                    twoToneColor="#FF5A5F"
+                    style={{ color: "#FF5A5F", fontSize: "24px" }}
+                  />
                 ) : (
-                  <EyeInvisibleOutlined style={{ color: "#FF5A5F", fontSize: "24px" }} />
+                  <EyeInvisibleOutlined
+                    style={{ color: "#FF5A5F", fontSize: "24px" }}
+                  />
                 )
               }
             />
           </Form.Item>
 
           <div className="text-end mb-3">
-            <Link to="/auth/forget-password" className="text-mainColor text-text1 font-b5">
+            <Link
+              to="/auth/forget-password"
+              className="text-mainColor text-text1 font-b5"
+            >
               Forgot the password?
             </Link>
           </div>
@@ -110,7 +128,6 @@ const Login = () => {
           >
             Login
           </Button>
-
         </Form>
       </div>
     </div>
@@ -118,4 +135,3 @@ const Login = () => {
 };
 
 export default Login;
-

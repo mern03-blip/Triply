@@ -2,7 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Form, Input, Typography, Modal, message } from "antd";
 import { FiArrowLeft, FiLock } from "react-icons/fi";
-import { EyeTwoTone, EyeInvisibleOutlined, CloseOutlined } from "@ant-design/icons";
+import {
+  EyeTwoTone,
+  EyeInvisibleOutlined,
+  CloseOutlined,
+} from "@ant-design/icons";
 import { FeaturedIcon } from "../../assets/image";
 import { forgotPassword } from "../../api/endpoints/auth";
 import { useMutation } from "@tanstack/react-query";
@@ -36,7 +40,9 @@ const ResetPassword = () => {
       }
     },
     onError: (error) => {
-      message.error(error?.response?.data?.message || "Server error. Please try again.");
+      message.error(
+        error?.response?.data?.message || "Server error. Please try again."
+      );
     },
   });
 
@@ -48,7 +54,6 @@ const ResetPassword = () => {
     <>
       <div className="relative flex-1 flex items-center justify-center h-screen w-full">
         <div className="w-[80%] h-[50%]  p-6  rounded-2xl">
-
           {/* 🔙 Back Button */}
           <button
             onClick={() => navigate(-1)}
@@ -64,22 +69,22 @@ const ResetPassword = () => {
             You can now reset your password.
           </Title>
 
-          <Form layout="vertical" onFinish={onFinish} validateTrigger="onChange">
+          <Form
+            layout="vertical"
+            onFinish={onFinish}
+            validateTrigger="onChange"
+          >
             {/* New Password */}
             <Form.Item
-              label={
-                <span className="font-b5  text-blackColor">
-                  Password
-                </span>
-              }
+              label={<span className="font-b5  text-blackColor">Password</span>}
               name="newPassword"
               required={false}
               rules={[
                 { required: true, message: "Please enter your password" },
                 {
-                  pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*\s).{6,128}$/,
-                  message:
-                    "Password must include uppercase, lowercase, number",
+                  pattern:
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])(?!.*\s).{6,128}$/,
+                  message: "Password must include uppercase, lowercase, number",
                 },
               ]}
             >
@@ -90,9 +95,14 @@ const ResetPassword = () => {
                 prefix={<FiLock className="text-mainColor text-[20px]" />}
                 iconRender={(visible) =>
                   visible ? (
-                    <EyeTwoTone twoToneColor="#FF5A5F" style={{ color: "#FF5A5F", fontSize: "24px" }} />
+                    <EyeTwoTone
+                      twoToneColor="#FF5A5F"
+                      style={{ color: "#FF5A5F", fontSize: "24px" }}
+                    />
                   ) : (
-                    <EyeInvisibleOutlined style={{ color: "#FF5A5F", fontSize: "24px" }} />
+                    <EyeInvisibleOutlined
+                      style={{ color: "#FF5A5F", fontSize: "24px" }}
+                    />
                   )
                 }
               />
@@ -127,9 +137,14 @@ const ResetPassword = () => {
                 prefix={<FiLock className="text-mainColor text-[20px]" />}
                 iconRender={(visible) =>
                   visible ? (
-                    <EyeTwoTone twoToneColor="#FF5A5F" style={{ color: "#FF5A5F", fontSize: "24px" }} />
+                    <EyeTwoTone
+                      twoToneColor="#FF5A5F"
+                      style={{ color: "#FF5A5F", fontSize: "24px" }}
+                    />
                   ) : (
-                    <EyeInvisibleOutlined style={{ color: "#FF5A5F", fontSize: "24px" }} />
+                    <EyeInvisibleOutlined
+                      style={{ color: "#FF5A5F", fontSize: "24px" }}
+                    />
                   )
                 }
                 onCopy={(e) => e.preventDefault()}
@@ -149,7 +164,6 @@ const ResetPassword = () => {
           </Form>
         </div>
 
-
         {/* ✅ Success Popup */}
         <Modal
           centered
@@ -162,13 +176,12 @@ const ResetPassword = () => {
           className="rounded-[28px]"
         >
           <div className="font-custom flex flex-col items-left p-6 text-left">
-
             {/* Custom Close Button in the top-right corner */}
             <button
               onClick={() => setIsModalVisible(false)}
               className="absolute top-6 right-6 text-mainColor transition hover:opacity-75"
             >
-              <CloseOutlined style={{ fontSize: '20px' }} />
+              <CloseOutlined style={{ fontSize: "20px" }} />
             </button>
 
             {/* Custom Checkmark Icon with double ring */}
@@ -179,7 +192,10 @@ const ResetPassword = () => {
             </div>
 
             {/* Text Content */}
-            <Typography.Title level={4} className="!font-b6 !text-h1 !text-blackColor">
+            <Typography.Title
+              level={4}
+              className="!font-b6 !text-h1 !text-blackColor"
+            >
               Password Updated
             </Typography.Title>
 
